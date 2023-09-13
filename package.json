@@ -5,7 +5,7 @@
   "main": "index.js",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && echo 'teste'"
     }
   },
   "lint-staged": {
