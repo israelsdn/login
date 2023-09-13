@@ -34,3 +34,32 @@ export const registerUser = async (req: Request, res: Response) => {
     return res.status(500).json({ msg: 'algo inesperado aconteceu' });
   }
 };
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    //Validação de dados
+    if (!email || !password) {
+      return res.status(422).json({ msg: 'Informe todos os dados!' });
+    }
+
+    const user = await getUser(email);
+
+    if (!user) {
+      return res.status(422).json({ msg: 'Usuário não encontrado!' });
+    }
+
+    //Verificando senha
+    const passwordVerify = await bcrypt.compare(password, user.senha_hash);
+
+    if (!passwordVerify) {
+      return res.status(401).json({ msg: 'Email ou senha invalido!' });
+    }
+
+    return res.status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('algo inesperado aconteceu');
+  }
+};
