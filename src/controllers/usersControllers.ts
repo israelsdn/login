@@ -7,17 +7,17 @@ export const registerUser = async (req: Request, res: Response) => {
     const user: IUser = req.body;
 
     //Validação dos dados
-          if (!user.name || !user.email || !user.password) {
-              return res.status(422).json({ msg: 'Dados insuficientes' });
-        }
+    if (!user.name || !user.email || !user.password) {
+      return res.status(422).json({ msg: 'Dados insuficientes' });
+    }
 
     const userVerify = await getUser(user.email);
 
     if (userVerify) {
-                 return res
+      return res
         .status(409)
         .json({ msg: `O email: ${user.email} já está sendo utilizado` });
-    }       
+    }
 
     //Criptografando a senha
     const salt = await bcrypt.genSalt(10);
