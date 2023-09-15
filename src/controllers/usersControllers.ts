@@ -1,6 +1,8 @@
 import { IUser, createUser, getUser } from '../models/user';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import jwt, { Secret } from 'jsonwebtoken';
+require('dotenv').config();
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -56,6 +58,16 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!passwordVerify) {
       return res.status(401).json({ msg: 'Email ou senha invalido!' });
     }
+
+    // Gerando token
+    const secret = `${process.env.SECRET}`;
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      secret,
+    );
 
     return res.status(200);
   } catch (error) {
