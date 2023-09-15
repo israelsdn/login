@@ -32,7 +32,6 @@ export const registerUser = async (req: Request, res: Response) => {
       .status(201)
       .json({ msg: `Usuario ${user.name} criado com sucesso` });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ msg: 'algo inesperado aconteceu' });
   }
 };
@@ -69,9 +68,8 @@ export const loginUser = async (req: Request, res: Response) => {
       secret,
     );
 
-    return res.status(200);
+    return res.status(200).json({ msg: 'Logado com sucesso', token: token });
   } catch (error) {
-    console.log(error);
     res.status(500).json('algo inesperado aconteceu');
   }
 };
