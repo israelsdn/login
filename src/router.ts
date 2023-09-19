@@ -5,4 +5,4 @@ export const router = Router();
 
 router.get('/', (req, res) => res.send('Aqui não tem nada'));
 //router.post('/user/register', registerUser);
-//router.post('/user/login', loginUser);
+router.post('/user/login', loginUser);
