@@ -63,7 +63,7 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     // Gerando token
-    const secret = `${process.env.SECRET}`;
+    const secret = process.env.SECRET as string;
 
     const token = jwt.sign(
       {
