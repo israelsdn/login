@@ -103,12 +103,13 @@ const loginUser = (req, res) =>
       );
       return res.status(200).json({ token: token });
     } catch (error) {
-      res.status(500).json('algo inesperado aconteceu');
+      return res.status(500).json('algo inesperado aconteceu');
     }
   });
 exports.loginUser = loginUser;
 const users = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    return res.status(200).json(user_1.getUsers);
+    const users = yield (0, user_1.getUsers)();
+    return res.status(200).json(users);
   });
 exports.users = users;
