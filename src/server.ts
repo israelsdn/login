@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/', (req, res) => res.send('Aqui não tem nada'));
 app.use(router);
 
 app.listen(process.env.PORT);
