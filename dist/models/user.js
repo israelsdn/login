@@ -33,7 +33,7 @@ var __awaiter =
     });
   };
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.getUser = exports.createUser = void 0;
+exports.getUsers = exports.getUser = exports.createUser = void 0;
 const client_1 = require('@prisma/client');
 const prisma = new client_1.PrismaClient();
 // Função para criar um novo usuário
@@ -61,3 +61,10 @@ function getUser(email) {
   });
 }
 exports.getUser = getUser;
+function getUsers() {
+  return __awaiter(this, void 0, void 0, function* () {
+    const users = yield prisma.users.findMany();
+    return users;
+  });
+}
+exports.getUsers = getUsers;

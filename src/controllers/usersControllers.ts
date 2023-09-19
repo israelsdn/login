@@ -1,4 +1,4 @@
-import { IUser, createUser, getUser } from '../models/user';
+import { IUser, createUser, getUser, getUsers } from '../models/user';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -76,4 +76,8 @@ export const loginUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json('algo inesperado aconteceu');
   }
+};
+
+export const users = async (req: Request, res: Response) => {
+  return res.status(200).json(getUsers);
 };
