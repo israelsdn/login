@@ -3,5 +3,6 @@ import { loginUser, registerUser } from './controllers/usersControllers';
 
 export const router = Router();
 
-router.post('/user/register', registerUser);
+router.get('/', (req, res) => res.send('Aqui não tem nada'));
+//router.post('/user/register', registerUser);
 //router.post('/user/login', loginUser);
