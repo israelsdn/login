@@ -94,7 +94,7 @@ const loginUser = (req, res) =>
         return res.status(401).json();
       }
       // Gerando token
-      const secret = `${process.env.SECRET}`;
+      const secret = process.env.SECRET;
       const token = jsonwebtoken_1.default.sign(
         {
           id: user.id,
