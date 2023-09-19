@@ -1,7 +1,7 @@
 import { IUser, createUser, getUser } from '../models/user';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 require('dotenv').config();
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -9,8 +9,12 @@ export const registerUser = async (req: Request, res: Response) => {
     const user: IUser = req.body;
 
     //Validação dos dados
-    if (!user.name || !user.email || !user.password) {
+    if (!user.name || !user.email || !user.password || !user.confPassword) {
       return res.status(422).json({ msg: 'Dados insuficientes' });
+    }
+
+    if (user.confPassword != user.password) {
+      return res.status(400).json({ msg: 'As senhas não coincidem' });
     }
 
     const userVerify = await getUser(user.email);
@@ -42,20 +46,20 @@ export const loginUser = async (req: Request, res: Response) => {
 
     //Validação de dados
     if (!email || !password) {
-      return res.status(422).json({ msg: 'Informe todos os dados!' });
+      return res.status(422).json();
     }
 
     const user = await getUser(email);
 
     if (!user) {
-      return res.status(422).json({ msg: 'Usuário não encontrado!' });
+      return res.status(401).json();
     }
 
     //Verificando senha
     const passwordVerify = await bcrypt.compare(password, user.senha_hash);
 
     if (!passwordVerify) {
-      return res.status(401).json({ msg: 'Email ou senha invalido!' });
+      return res.status(401).json();
     }
 
     // Gerando token
@@ -68,7 +72,7 @@ export const loginUser = async (req: Request, res: Response) => {
       secret,
     );
 
-    return res.status(200).json({ msg: 'Logado com sucesso', token: token });
+    return res.status(200).json({ token: token });
   } catch (error) {
     res.status(500).json('algo inesperado aconteceu');
   }

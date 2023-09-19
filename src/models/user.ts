@@ -7,6 +7,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  confPassword: string;
 }
 
 // Função para criar um novo usuário
