@@ -5,5 +5,5 @@ const express_1 = require('express');
 const usersControllers_1 = require('./controllers/usersControllers');
 exports.router = (0, express_1.Router)();
 exports.router.get('/', (req, res) => res.send('Aqui não tem nada'));
-//router.post('/user/register', registerUser);
-exports.router.post('/user/login', usersControllers_1.loginUser);
+exports.router.post('/user/register', usersControllers_1.registerUser);
+//router.post('/user/login', loginUser);
